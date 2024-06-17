@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+   
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">Profile</h1>
+                <nav class="text-center mb-4">
+                    <a href="/home" class="mr-3">Home</a>
+                    <a href="/dashboard" class="mr-3">Dashboard</a>
+                    <a href="/logout">Logout</a>
+                </nav>
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Update Profile</h2>
+                        <form action="/profile" method="POST">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" value="<%= user ? user.firstname: '' %>" placeholder="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" value="<%= user ? user.email : '' %>"  placeholder="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="bio">Bio:</label>
+                                <textarea class="form-control" id="bio" name="bio"  rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender:</label><br>
+                                <input type = "radio" id="gender" name="gender" value="male <%= user && user.gender === 'male' ? 'checked' : '' %>" ><label for="gender">male</label>
+                                <input type = "radio" id="gender" name="gender" value = "female <%= user && user.gender === 'female' ? 'checked' : '' %>"><label for="gender">female</label>
+                                <input type = "radio"  id="gender" name="gender" value = "other <%= user && user.gender === 'other' ? 'checked' : '' %>" ><label for="gender">other</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="exp">Experience:</label>
+                                <textarea  class="form-control" id="exp" name="exp" row="1"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-pink btn-block">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

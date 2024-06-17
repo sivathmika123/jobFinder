@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <style>
+        
+        .btn-pink {
+            background-color: #ff69b4;
+            border-color: #ff69b4;
+            color: white;
+        }
+        h2 {
+            color: #ff4081;
+        }
+        .btn-pink:hover {
+            background-color: white;
+            border-color: #ff1493;
+            color: #ff69b4;
+        }
+        .custom-header {
+            border-bottom: 3px solid #ff4081;
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
+        .container-custom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .auth-buttons button {
+            margin-left: 10px;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .auth-buttons .btn-primary {
+            background-color: #ff4081;
+            color: white;
+        }
+        .auth-buttons .btn-primary:hover {
+            background-color: #e63971;
+        }
+        .auth-buttons .btn-secondary {
+            background-color: #ffffff;
+            color: #ff4081;
+            border: 2px solid #ff4081;
+        }
+        .auth-buttons .btn-secondary:hover {
+            background-color: #ff4081;
+            color: white;
+        }
+        footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        footer .footer-content {
+            text-align: center;
+        }
+        footer h5 {
+            color: #ff69b4;
+            font-weight: 700;
+        }
+        footer p {
+            color: #6c757d;
+        }
+        footer a {
+            color: #343a40;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover {
+            color: #ff69b4;
+        }
+        .card {
+            margin: 3px;
+        }
+        .nameofjob {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nameofjob:hover {
+            color: #ff4081;
+            text-decoration: none;
+        }
+        .job-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .job-details div {
+            margin-right: 15px;
+        }
+        .job-skills {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .navbar {
+            display: flex;
+        }
+        .nav-right {
+            display: flex;
+            position: relative;
+        }
+        .nav-link {
+            margin-left: 10px;
+            align-items: flex-start;
+        }
+        .logo h1, .logo p {
+            margin: 0;
+        }
+        .container-custom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .navbar {
+            align-items: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <header class="py-3 custom-header">
+        <div class="container container-custom">
+            <div class="logo">
+                <h1 class="h3">JobFinder</h1>
+                <p class="m-0">Find your next opportunity</p>
+            </div>
+            <nav class="navbar">
+                <div class="nav-right">
+                    <a class="nav-link text-dark" href="/dashboard">Dashboard</a>
+                    <a class="nav-link text-dark" href="/profile">Profile</a>
+                    <a class="nav-link text-dark" href="/logout"><button class="btn btn-secondary btn-sm">Logout</button></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+   
+<main>
+    <h1>Job Listings</h1>
+    <% if (jobListings.length === 0) { %>
+        <p>No job listings available.</p>
+    <% } else { %>
+        <% jobListings.forEach(job => { %>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title"><a class="nameofjob" href="/job/<%= job._id %>"><%= job.job_title %></a></h3>
+                        <div>Company Name: <%= job.CompanyName %></div>
+                        <div>Experience: <%= job.experience %></div>
+                        <div>Salary: <%= job.salary ? '₹' + job.salary : 'Not disclosed' %></div>
+                        <div>Location: <%= job.location %></div>
+                        <p class="card-text"><%= job.jobDescription %></p>
+                        <div class="job-skills">
+                            Skills: <%= job.skills.join(', ') %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    <% } %>
+
+</main>
+   
+</body>
+</html>

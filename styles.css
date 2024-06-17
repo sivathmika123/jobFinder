@@ -1,0 +1,115 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+h2 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.hero h3 {
+    font-size: 18px;
+    color: #6c757d;
+  }
+
+.text-pink {
+    color: #ff4081;
+}
+
+.auth-buttons button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .auth-buttons .btn-primary {
+    background-color: #ff4081;
+    color: white;
+  }
+  
+  .auth-buttons .btn-primary:hover {
+    background-color: #e63971;
+  }
+  
+  .auth-buttons .btn-secondary {
+    background-color: #ffffff;
+    color: #ff4081;
+    border: 2px solid #ff4081;
+  }
+  
+  .auth-buttons .btn-secondary:hover {
+    background-color: #ff4081;
+    color: white;
+  }
+  
+footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+footer .footer-content {
+    text-align: center;
+}
+
+footer h5 {
+    color: #ff69b4;
+    font-weight: 700;
+}
+
+footer p {
+    color: #6c757d;
+}
+footer a {
+    color: #343a40;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer a:hover {
+    color: #ff69b4;
+}
+
+/* Specific Adjustments for Spacing */
+header, footer {
+    flex-shrink: 0;
+}
+
+main {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    padding: 0 20px;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.custom-img{
+    width: 100%;
+    height: auto;
+}
+.custom-header{
+    border-bottom: 3px solid #ff4081;
+}
+
+

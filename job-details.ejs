@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details</title>
+    <style>
+        
+        .job-details-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .job-details-container h2 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+        }
+        .job-details-container p {
+            margin: 5px 0;
+            font-size: 1em;
+        }
+        .job-skills {
+            margin-top: 15px;
+            font-size: 1em;
+            color: #555;
+        }
+        .apply-button{
+            margin-top:10px;
+            background-color: #ff4081;
+            border-color: #ff4081;
+            color:white;
+            padding:30px,30px,30px,30px;
+        }
+        .btn-back {
+            background-color: #ff4081;
+            color: white;
+            border: 2px solid #ff4081;
+            padding: 8px 16px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-back:hover {
+            background-color: white;
+            color: #ff4081;
+        }
+        .apply-button{
+            padding: 8px;
+           
+        }
+    </style>
+</head>
+<body>
+    <div class="job-details-container">
+
+        
+        <h2><%= job.job_title %></h2>
+        <p><strong>Company Name:</strong> <%= job.CompanyName %></p>
+        <p><strong>Experience:</strong> <%= job.experience %></p>
+        <p><strong>Salary:</strong> <%= job.salary ? '₹' + job.salary : 'Not disclosed' %></p>
+        <p><strong>Location:</strong> <%= job.location %></p>
+        <p><strong>Duration:</strong> <%= job.duration %></p>
+        <p><strong>Start Date:</strong> <%= job.start_date.toDateString() %></p>
+        <p><strong>Application Deadline:</strong> <%= job.application_deadline.toDateString() %></p>
+        <p><strong>Job Description:</strong></p>
+        <p><%= job.jobDescription %></p>
+        <p><strong>Requirements:</strong></p>
+        <p><%= job.requirements %></p>
+        <div class="job-skills">
+            <strong>Skills:</strong> <%= job.skills.join(', ') %>
+        </div>
+
+        <% if(user && user.type === 'Candidates') { %>
+        <form action="/apply/<%= job._id %>" method="get">
+            <button type="submit" class="apply-button">Apply</button>
+        </form>
+        <% } %>
+    </div>
+        <a class="btn-back"  href="/jobs">Back to Job Listings</a>
+</body>
+</html>

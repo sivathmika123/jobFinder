@@ -1,0 +1,69 @@
+body {
+    background-color: #f8f9fa;
+
+}
+
+ h2 {
+    color: #ff4081;
+}
+
+nav a {
+    color: #dc3545;
+    
+   
+} 
+.navbar {
+    display: flex;
+}
+.nav-right {
+    display: flex;
+    position: relative;
+}
+.nav-link {
+    margin-left: 10px;
+    align-items: flex-start;
+}
+h1{
+    font-weight: lighter;
+    font-size: 30px;
+}
+
+.custom-header .username {
+    font-size: 2rem; /* Larger size for username */
+    margin-left: 0.5rem;
+}
+
+.dashboard{
+    text-align:center;
+    margin-top: 20px;
+}
+
+nav a:hover {
+    text-decoration: none;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+.custom-header {
+    border-bottom: 3px solid #ff4081;
+    height: 100px; /* Adjust this value to your desired height */
+    display: flex;
+    align-items: center; /* Vertically center the text */
+}
+
+.custom-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80%;
+}
+
+

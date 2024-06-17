@@ -1,0 +1,31 @@
+body {
+    background-color: #f8f9fa;
+}
+
+h1, h2 {
+    color: #ff4081;
+}
+
+nav a {
+    color:#333;
+ 
+}
+
+nav a:hover {
+    text-decoration: none;
+}
+
+.btn-pink {
+    background-color: #ff4081;
+    border-color: #ff4081;
+    color: #fff;
+}
+
+
+.btn-pink:hover {
+    background-color: #e6376e;
+    border-color: #e6376e;
+}
+.container{
+    width: 600px;
+}

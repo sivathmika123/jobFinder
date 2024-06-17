@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Post</title>
+
+    <link href="/postprop.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    
+</head>
+<body>
+    <header class="bg-white custom-header">
+        <div class="container d-flex justify-content-between">
+            <h1 class="mb-0">Welcome,<span class="username">
+                <% if (user && user.companyname) { %>
+                    <%= user.companyname %>
+                <% } else if (user && user.firstname) { %>
+                    <%= user.firstname %>
+                <% }  %>
+            </span></h1>
+            <nav>
+                <a href="/home" class="mr-3">Home</a>
+                <a href="/profile" class="mr-3">Profile</a>
+                <a href="/logout" class="mr-3">Logout</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1 class="text-center"><%= job ? 'Edit Job' : 'Post a New Job' %></h1>
+    <div class="form-box">
+        <form action="<%= job ? '/edit/' + job._id : '/job' %>" method="post">
+            <div class="form-group">
+                <label for="CompanyName">Company Name</label>
+                <input type="text" class="form-control" id="CompanyName" name="CompanyName" value="<%= job ? job.CompanyName : '' %>" placeholder="Company Name" required>
+            </div>
+            <div class="form-group">
+                <label for="job_title">Job Title</label>
+                <input type="text" class="form-control" name="job_title" id="job_title" value="<%= job ? job.job_title : '' %>" placeholder="Job Title" required>
+            </div>
+            <div class="form-group">
+                <label for="experience">Experience</label>
+                <input type="text" class="form-control" name="experience" id="experience" value="<%= job ? job.experience : '' %>" placeholder="Years of Experience" required>
+            </div>
+            <div class="form-group">
+                <label for="salary">Salary</label>
+                <input type="text" class="form-control" name="salary" id="salary" value="<%= job ? job.salary : '' %>" placeholder="Salary" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" class="form-control" name="location" id="location" value="<%= job ? job.location : '' %>" placeholder="Location" required>
+            </div>
+            <div class="form-group">
+                <label for="jobDescription">Job Description</label>
+                <textarea class="form-control" rows="4" name="jobDescription" id="jobDescription" placeholder="Job Description" required><%= job ? job.jobDescription : '' %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="requirements">Requirements</label>
+                <textarea class="form-control" id="requirements" name="requirements" rows="4" required><%= job ? job.requirements : '' %></textarea>
+            </div>
+            <div class="form-group" id="skillsContainer">
+                <label for="skills">Skills</label>
+                <div id="skillsInputs">
+                    <% if (job && job.skills.length > 0) { %>
+                        <% job.skills.forEach(function(skill) { %>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control skillInput" name="skills[]" value="<%= skill %>" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-danger deleteSkill">Delete</button>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control skillInput" name="skills[]" placeholder="Skill" required>
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-danger deleteSkill">Delete</button>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+                <button type="button" id="addSkill" class="btn btn-secondary mt-2">Add Skill</button>
+            </div>
+            <div class="form-group">
+                <label for="duration">Duration</label>
+                <input type="text" class="form-control" id="duration" name="duration" value="<%= job ? job.duration : '' %>" placeholder="Duration" required>
+            </div>
+            <div class="form-group">
+                <label for="start_date">Start Date</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" value="<%= job ? job.start_date.toISOString().substr(0, 10) : '' %>" required>
+            </div>
+            <div class="form-group">
+                <label for="application_deadline">Application Deadline</label>
+                <input type="date" class="form-control" id="application_deadline" name="application_deadline" value="<%= job ? job.application_deadline.toISOString().substr(0, 10) : '' %>" required>
+            </div>
+            <button type="submit" class="btn btn-custom btn-block"><%= job ? 'Update Job' : 'Post Job' %></button>
+        </form>
+    </div>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.getElementById("addSkill").addEventListener("click", function() {
+            var skillsInputs = document.getElementById("skillsInputs");
+            var newInput = document.createElement("div");
+            newInput.classList.add("input-group", "mb-3");
+            newInput.innerHTML = '<input type="text" class="form-control skillInput" name="skills[]" required placeholder="Skill">' +
+                                 '<div class="input-group-append">' +
+                                 '<button type="button" class="btn btn-danger deleteSkill">Delete</button>' +
+                                 '</div>';
+            skillsInputs.appendChild(newInput);
+
+            newInput.querySelector('.deleteSkill').addEventListener("click", function() {
+                newInput.remove();
+            });
+        });
+
+        document.querySelectorAll('.deleteSkill').forEach(function(button) {
+            button.addEventListener("click", function() {
+                button.closest('.input-group').remove();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header class="py-3 custom-header">
+        <div class="container container-custom">
+
+            <h1 class="mb-0">Welcome,<span class="username"> <%= user.companyname || user.firstname %></h1>
+
+            <nav class="navbar">
+              
+
+               <% if(user && userType ==='Candidates'){ %>
+                <div class="nav-right">
+                    <a href="/home" class="nav-link text-dark">Home</a>
+                    <a href="/profile" class="nav-link text-dark">Profile</a>
+                    <a class="nav-link text-dark" href="/logout"><button class="btn btn-secondary btn-sm">Logout</button></a>
+    
+                   
+                </div>
+                <% } else if(user && userType === 'Company'){ %>
+                    <div class="nav-right">
+                        <a href="/home" class="nav-link text-dark">Home</a>
+                        <a class="nav-link text-dark" href="/logout"><button class="btn btn-secondary btn-sm">Logout</button></a>
+
+                    </div>
+                    <% } %>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 class="dashboard">Your Dashboard</h2>
+        <% if (typeof successMessage !== 'undefined' && successMessage.length > 0) { %>
+            <div class="alert alert-success" role="alert">
+                <%= successMessage[0] %>
+            </div>
+        <% } %>
+        <p class="text-center">Here you can manage your profile and view your activities.</p>
+
+        <% if (userType === 'Company') { %>
+            <h2 class="text-center">Your Job Posts</h2>
+            <div class="text-center mb-3">
+                <a href="/prop" class="btn btn-primary">Post a Job</a>
+            </div>
+            <div class="row">
+                <% jobPosts.forEach(job => { %>
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= job.job_title %></h5>
+                                <div>Company Name: <%= job.CompanyName %></div>
+                                <div>Experience: <%= job.experience %></div>
+                                <div>Salary: <%= job.salary ? '₹' + job.salary : 'Not disclosed' %></div>
+                                <div>Location: <%= job.location %></div>
+                                <p>Application Deadline: <%= job.application_deadline.toDateString() %></p>
+                                <a href="/job/<%= job._id %>" class="btn btn-link">View Details</a>
+                                <a href="/edit/<%= job._id %>" class="btn btn-link">Edit</a>
+                                <form action="/delete/<%= job._id %>" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this job?')">Delete</button>
+                                </form>
+                                <h4>Applications:</h4>
+                                <ul>
+                                    <% if (job.applications && job.applications.length > 0) { %>
+                                        <% job.applications.forEach(application => { %>
+                                            <li>
+                                                <div>Candidate: <%= application.candidateId.firstname %> <%= application.candidateId.lastname %></div>
+                                                <div>Status: <%= application.status %></div>
+                                                <form action="/update-status/<%= application.candidateId._id %>/<%= job._id %>" method="POST">
+                                                    <select name="status" class="form-control d-inline w-auto">
+                                                        <option value="applied" <%= application.status === 'applied' ? 'selected' : '' %>>Applied</option>
+                                                        <option value="in-review" <%= application.status === 'in-review' ? 'selected' : '' %>>In Review</option>
+                                                        <option value="accepted" <%= application.status === 'accepted' ? 'selected' : '' %>>Accepted</option>
+                                                        <option value="rejected" <%= application.status === 'rejected' ? 'selected' : '' %>>Rejected</option>
+                                                    </select>
+                                                    <button type="submit" class="btn btn-primary">Update Status</button>
+                                                </form>
+                                            </li>
+                                        <% }) %>
+                                    <% } else { %>
+                                        <li>No applications found</li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else if (userType === 'Candidates') { %>
+            <h2 class="text-center">Jobs You've Applied For</h2>
+            <div class="row">
+                <% jobPosts.forEach(application => { %>
+                    <% if (application.jobId) { %>
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= application.jobId.job_title %></h5>
+                                    <div>Company Name: <%= application.jobId.CompanyName %></div>
+                                    <div>Salary: <%= application.jobId.salary ? '₹' + application.jobId.salary : 'Not disclosed' %></div>
+                                    <div>Location: <%= application.jobId.location %></div>
+                                    <p>Status: <%= application.status %></p>
+                                    <a href="/job/<%= application.jobId._id %>" class="btn btn-link">View Details</a>
+                                    <form action="/cancel-application/<%= application.jobId._id %>" method="POST" style="display:inline;">
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this application?')">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

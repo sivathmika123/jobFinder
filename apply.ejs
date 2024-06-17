@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application</title>
+    <link rel="stylesheet" href="/jobapply.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="form-box">
+    <h1>Applying  for <%= job.job_title %></h1>
+    <form id="applyForm" action="/apply/<%= job._id %>" method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="firstname">First Name:</label><br>
+            <input type="text" id="firstname" name="firstname" required><br>
+        </div>
+
+        <div class="form-group">
+
+            <label for="lastname">Last Name:</label><br>
+            <input type="text" id="lastname" name="lastname" required><br>
+        </div>
+
+        <div class="form-group">
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+        </div>
+
+        <div class="form-group">
+            <label for="resume">Resume:</label><br>
+            <input type="file" id="resume" name="resume" required><br><br>
+        </div>
+
+        <input type="hidden" name="jobId" value="<%= job._id %>">
+        <button type="submit" id="applyButton">Apply</button>
+        
+    </form>
+    </div>
+
+
+    
+    
+    <script>
+    document.getElementById('applyForm').addEventListener('submit', function(event) {
+        var applyButton = document.getElementById('applyButton');
+        if (applyButton.disabled) {
+            event.preventDefault();
+        } else {
+            applyButton.disabled = true;
+        }
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   
+    
+</body>
+</html>
